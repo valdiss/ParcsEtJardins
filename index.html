@@ -46,7 +46,7 @@
       }
       
       $(document).ready(function() {
-        $('#dataLoading').click(function(event){
+        $('#dataLoading').on("click",function(event){
           LoadAdditionalData();
           event.preventDefault();
         });
