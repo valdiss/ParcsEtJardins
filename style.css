@@ -1,0 +1,17 @@
+table, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  display: none;
+  padding: 10px;
+}
+
+tr td:first-child {
+  display: block;
+  font-weight: bold;
+}
