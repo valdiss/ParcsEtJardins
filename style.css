@@ -1,16 +1,64 @@
-table, td {
-  border: 1px solid black;
+* {
+    box-sizing: border-box;
 }
 
-table {
-  border-collapse: collapse;
+body {
+    margin: 0;
 }
 
-td {
-  padding: 10px;
+header {
+    background-image: url('lovely-park-bench.jpg');
+    background-position: bottom;
+    height: 40vh;
 }
 
-tr td:first-child {
-  display: block;
-  font-weight: bold;
+h1 {
+    display: block;
+    height : 40vh;
+    line-height: 40vh;
+    text-align: center;
+    margin: 0;
+    color: black;
+    padding: 20vh auto;
+    font-size: 4em;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#map {
+    margin: auto;
+    width: 100%;
+    height: 50vh;
+}
+
+#ListPark p {
+    width: 100%;
+    margin: 0;
+    padding: 40px 20px 10px 50px;
+    cursor: pointer;
+    font-size: 1.5em;
+    border-bottom: 1px solid grey;
+    background-color: white;
+}
+
+#ListPark p:hover {
+    border-bottom: 1px solid red;
+    background-color: #d0d0cb;
+    transition: 0.2s;
+}
+
+#ListPark {
+    float: left;
+    width: 40%;
+    height: 60vh;
+    overflow-y: scroll;
+ }
+
+#Renseignements {
+    float: left;
+    width: 60%;
+    text-align: center;
+}
+
+#Renseignements p {
+    font-size: 1.2em;
 }

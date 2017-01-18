@@ -11,51 +11,82 @@
 </head>
 
 <body>
-    <a id="dataLoading" href="#">Chargement des données</a>
-    <div id="myTablePlaceholder"></div>
+    <header>
+        <h1>Liste des parcs de Provence</h1>
+    </header>
+    <div id="myTablePlaceholder">
+        <div id="ListPark"></div>
+        <div id="Renseignements">
+            <div id="map"></div>
+            <p id="raisonsociale"></p>
+            <p id="type"></p>
+            <p id="voie"></p>
+            <p id="code"></p>
+            <p id="ville"></p>
+        </div>
+    </div>
     <script type="text/javascript">
         //callback method
         function AdditionalData_Loaded(data) {
             //create a table
-            var placeholder = document.getElementById("myTablePlaceholder");
-            var ulPrin = document.createElement('ul');
-            var liPrin = document.createElement('li');
-            ulPrin.appendChild(liPrin);
-// mettre en li
-            //for each row in the table add the cell contents
-            for (var i = 1; i < data.d.length; i++) {
-                var tr = document.createElement('TR');
-                liPrin.appendChild(tr);
-                tr.appendChild(AddCellContents(data.d, i, 'raisonsociale'));
-                tr.appendChild(AddCellContents(data.d, i, 'soustype'));
-                tr.appendChild(AddCellContents(data.d, i, 'codepostal'));
-                tr.appendChild(AddCellContents(data.d, i, 'ville'));
-                tr.appendChild(AddCellContents(data.d, i, 'latitude'));
-                tr.appendChild(AddCellContents(data.d, i, 'longitude'));
+            let listPark = document.getElementById("ListPark");
+
+            for (var i = 0; i < data.d.length; i++) {
+                listPark.appendChild(AddHeadContents(data.d, i, 'raisonsociale'));
             }
-            //add the table to page
-            placeholder.appendChild(ulPrin);
+
+            //event click
+            $('#ListPark').on('click', 'p', function() {
+                let index = $(this).index();
+                let lat = AddDataContents(data.d, index, 'latitude');
+                console.log(lat);
+                let long = AddDataContents(data.d, index, 'longitude');
+                console.log(long);
+                var myLatLng = {
+                    lat: parseFloat(lat),
+                    lng: parseFloat(long)
+                };
+
+                // Create a map object and specify the DOM element for display.
+                let map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    scrollwheel: true,
+                    zoom: 14
+                });
+
+                // Create a marker and set its position.
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: myLatLng,
+                    title: AddDataContents(data.d, index, 'raisonsociale')
+                });
+
+                $('#raisonsociale').html(AddDataContents(data.d, index, 'raisonsociale'));
+                let concat = "";
+                let codepostal = (AddDataContents(data.d, index, 'codepostal'));
+                let ville = (AddDataContents(data.d, index, 'ville'));
+                concat = codepostal + " " + ville;
+                $('#ville').html(concat);
+            });
         }
 
-        //add cell contents to the table
-        function AddCellContents(data, cell, id) {
-            var td = document.createElement('TD');
-            var dataCell = data[cell][id];
-            td.appendChild(document.createTextNode(dataCell));
-            return td;
+        function AddHeadContents(data, ligne, id) {
+            let dataCell = data[ligne][id];
+            let p = document.createElement('p');
+            p.innerHTML = dataCell;
+            return p;
+        }
+
+        function AddDataContents(data, ligne, id) {
+            let dataCell = data[ligne][id];
+            return dataCell;
         }
 
         $(document).ready(function() {
-            $('#dataLoading').on("click", function(event) {
-                LoadAdditionalData();
-                event.preventDefault();
-            });
-            $('#myTablePlaceholder').on('click', 'table tbody tr td', function() {
-                $(this).css("background-color","red") ;
-            });
-
+            LoadAdditionalData();
         });
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgdKWWYv-TogVFniqE3Yai3FadL7nvyh0" async defer></script>
 </body>
 
 </html>
