@@ -1,7 +1,7 @@
 function LoadAdditionalData()
 {
     //create the queryUrl to be used in the service call
-    var query = "http://dataprovence.cloudapp.net:8080/v1/dataprovencetourisme/ParcsEtJardins?&format=json&callback=?";
+    var query = "https://valdiss.github.io/jsonP-J/ParcsEtJardins.json";
     var filter = "";
     var queryUrl = query + filter;
     //make jquery call to service

@@ -39,9 +39,7 @@
             $('#ListPark').on('click', 'p', function() {
                 let index = $(this).index();
                 let lat = AddDataContents(data.d, index, 'latitude');
-                console.log(lat);
                 let long = AddDataContents(data.d, index, 'longitude');
-                console.log(long);
                 var myLatLng = {
                     lat: parseFloat(lat),
                     lng: parseFloat(long)
